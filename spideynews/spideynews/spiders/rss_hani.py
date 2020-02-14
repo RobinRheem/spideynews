@@ -12,6 +12,9 @@ class RssHaniSpider(XMLFeedSpider):
         'http://www.hani.co.kr/rss/international/',
         'http://www.hani.co.kr/rss/sports/',
     ]
+    namespaces = [
+        ('dc', 'http://purl.org/dc/elements/1.1/'),
+    ]
     iterator = 'xml'
     itertag = 'item'
 
@@ -24,5 +27,4 @@ class RssHaniSpider(XMLFeedSpider):
             'subject': selector.xpath('dc:subject/text()').get(),
             'category': selector.xpath('dc:category/text()').get(),
         }
-        self.logger.info(f'item: {item}')
         return item

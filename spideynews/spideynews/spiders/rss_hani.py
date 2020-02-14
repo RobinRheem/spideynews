@@ -17,9 +17,12 @@ class RssHaniSpider(XMLFeedSpider):
 
     def parse_node(self, response, selector):
         item = {
-            'title': selector.xpath('title').get(),
-            'url': selector.xpath('link').get(),
-            'description': selector.xpath('description').get(),
+            'title': selector.xpath('title/text()').get(),
+            'url': selector.xpath('link/text()').get(),
+            'description': selector.xpath('description/text()').get(),
+            'published_at': selector.xpath('pubDate/text()').get(),
+            'subject': selector.xpath('dc:subject/text()').get(),
+            'category': selector.xpath('dc:category/text()').get(),
         }
         self.logger.info(f'item: {item}')
         return item
